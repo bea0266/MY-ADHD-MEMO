@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/layout.css" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="/js/common.js"></script>
+		<link rel="stylesheet" href="/css/layout.css" />
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script type="text/javascript" src="/js/common.js"></script>
 		<title>메모 관리</title>
 	</head>
 	<body>
@@ -15,12 +15,133 @@
 			</div>
 			<div class="memo_content_area">
 				<div class="memo_left_side">
-					<h2>메모 카테고리 선택</h2>
-                    <!-- <button onclick="changeCategory();">카테고리 변경 버튼</button>
+					<button class="memo_btn">카테고리 추가 +</button>
+					<div class="memo_tree_area">
+						<ul class="memo_category_select_tree">
+							<li class="memo_category_select_item_list">
+								<div
+									class="memo_category_select_item_box"
+									onclick="alert('hello');"
+								>
+									카테고리1
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리2
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+							<li class="memo_category_select_item_list">
+								<div class="memo_category_select_item_box">
+									카테고리3
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- <button onclick="changeCategory();">카테고리 변경 버튼</button>
 		            <div id="memo_list"></div> -->
 				</div>
 				<div class="memo_middle">
-					<h2>메모 표시 영역</h2>
+					<button class="memo_btn">메모 추가 +</button>
+					<div class="memo_item">
+						<div class="memo_toolbar"></div>
+						<div class="memo_input" contenteditable="true"></div>
+					</div>
 				</div>
 				<div class="memo_right_side">
 					<h2>메모 검색 영역</h2>
@@ -29,4 +150,15 @@
 			<div class="memo_footer"></div>
 		</div>
 	</body>
+	<script>
+		document.addEventListener('DOMContentLoaded', event => {
+			const editableContent = document.querySelector(
+				'div[contenteditable="true"]'
+			);
+
+			editableContent.addEventListener('click', () => {
+				editableContent.focus();
+			});
+		});
+	</script>
 </html>
