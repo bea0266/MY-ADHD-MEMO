@@ -15,7 +15,7 @@
 			</div>
 			<div class="memo_content_area">
 				<div class="memo_left_side">
-					<button class="memo_btn">카테고리 추가 +</button>
+					<button class="memo_btn">add category</button>
 					<div class="memo_tree_area">
 						<ul class="memo_category_select_tree">
 							<li class="memo_category_select_item_list">
@@ -137,10 +137,94 @@
 		            <div id="memo_list"></div> -->
 				</div>
 				<div class="memo_middle">
-					<button class="memo_btn">메모 추가 +</button>
-					<div class="memo_item">
-						<div class="memo_toolbar"></div>
-						<div class="memo_input" contenteditable="true"></div>
+					<div class="memo_action_area">
+						<button class="memo_btn">add memo</button>
+					</div>
+					<div class="memo_item_area">
+						<div id="memo_item_1" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_2" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_3" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_4" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_5" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_6" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_7" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_8" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_9" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_10" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_11" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
+						<div id="memo_item_12" class="memo_item">
+							<div class="memo_toolbar"></div>
+							<div
+								class="memo_input"
+								contenteditable="true"
+							></div>
+						</div>
 					</div>
 				</div>
 				<div class="memo_right_side">
@@ -151,13 +235,29 @@
 		</div>
 	</body>
 	<script>
+		function saveMemo(memoId) {
+			alert('test' + memoId);
+		}
+
 		document.addEventListener('DOMContentLoaded', event => {
-			const editableContent = document.querySelector(
+			const editableContent = document.querySelectorAll(
 				'div[contenteditable="true"]'
 			);
 
-			editableContent.addEventListener('click', () => {
-				editableContent.focus();
+			editableContent.forEach(content => {
+				content.addEventListener('click', () => {
+					content.focus();
+				});
+
+				const debouncedFunc = debounce(() => {
+					const memoId = content.parentElement.id;
+					saveMemo(memoId);
+				}, 700);
+
+				content.addEventListener('input', event => {
+					updatedMemoId = event.target.parentElement.id;
+					debouncedFunc();
+				});
 			});
 		});
 	</script>
