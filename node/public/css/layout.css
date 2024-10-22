@@ -23,7 +23,6 @@
 
 .memo_left_side, .memo_middle_side, .memo_right_side {
     display: flex;
-    flex: none;
     flex-basis: 0;
     margin: 0 10px;
     border: none;
@@ -36,7 +35,6 @@
   min-width: 200px;
   background-color: #d69f07;
   padding: 8px;
-  border-color: none;
   border-radius: 10px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
 }
@@ -51,28 +49,14 @@
 }
 
 .memo_right_side {
-  min-width: 239px; 
+  display: flex;
+  min-width: 239px;
+  background-color: #b6b5b4; 
   flex-grow: 1;
-}
-
-.memo_btn {
-  border-radius: 5px;
-  font-size: 12px;
-  padding: 10px;
-  color: white;
-  background-color:  rgb(14, 231, 112);
-  border-color: transparent;
-  font-weight: bold;
-  text-transform: uppercase;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  
 }
 
 .memo_action_area {
   display: flex;
-}
-.memo_middle .memo_action_area .memo_btn {
-  margin: 10px 5px 10px 0;
 }
 
 .memo_middle .memo_item_area {
@@ -82,19 +66,10 @@
   justify-content: center;
 }
 
-.memo_left_side .memo_btn {
-  margin: 10px 5px 5px 0;
-}
-
-.memo_btn .list_btn {
-  border: none;
-
-}
-
+/** tree layout */
 .memo_tree_area {
   overflow-y: scroll;
   text-align: right;
-  border: none;
   margin-top: 5px;
   height: 520px;
 }
@@ -118,68 +93,66 @@
   background: #000000; /* 스크롤바 호버 색상 */
 }
 
-.memo_category_select_tree > li{
-  list-style: none;
-  cursor: pointer;
-}
-
-.memo_category_select_item_box {
-  padding: 12px;
-  font-size: 12px;
-  font-weight: bold;
-  margin: 10px 10px;
-  border-color: transparent;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  background-color:  rgb(5, 85, 41);;
-  color: white;
-}
-
-
-.memo_category_select_item_box:hover {
-  background-color:  rgb(14, 231, 112);
-}
-
-.memo_item {
-  display: block;
-  width: 200px;
-  height: 170px;
-  margin: 20px;
-  font-size: 10px;
-  border: none;
-}
-
-div[contenteditable="true"] > div {
-  border: none !important;
-}
-
-.memo_item > .memo_toolbar {
+.memo_search_area {
   display: flex;
-  background-color: #640707;
-  border-bottom: none;
-  width: 200px;
-  height: 28px;
+  position: relative;
+  width: 100%;
+  height: 75px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
-.memo_input {
+.memo_search_result_area {
+  display: flex;
   overflow-y: scroll;
-  height: 150px;
-  padding: 10px;
-  border-top-color: #f1f1f1;
+  height: 520px;
+}
+
+/** dialog layout */
+.memo_dialog, .category_dialog{
+  position: fixed;
+  z-index: 1000;
+  border-width: 0;
+  margin: auto;
+  box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.1);
+}
+.dialog_container {
+  border-color: transparent;
   outline: none;
-  background-color: #e5f054;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-}
-.memo_input::-webkit-scrollbar {
-  width: 4px;
+  width: 500px;
+  height: 300px;
 }
 
-.memo_input::-webkit-scrollbar-track {
-  background: none; /* 스크롤바 트랙 배경색 */
+.dialog_header {
+  display: flex;
+  background-color: #574a04;
+  align-items: center;
+  color: white;
+  height: 40px;
 }
 
-.memo_input::-webkit-scrollbar-thumb {
-  background: #030303; /* 스크롤바 색상 */
-  border-radius: 6px; /* 스크롤바 모서리 둥글게 */
+.dialog_title {
+  margin-left: 10px;
+  font-weight: bold;
 }
+
+.dialog_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 210px;
+}
+
+.dialog_input_area {
+  width: 100%;
+  padding: 15px;
+}
+
+.dialog_footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
 

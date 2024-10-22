@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/css/layout.css" />
+		<link rel="stylesheet" href="/css/content.css" />
+		<link rel="stylesheet" href="/css/button.css" />
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>
 		<title>메모 관리</title>
@@ -15,7 +17,7 @@
 			</div>
 			<div class="memo_content_area">
 				<div class="memo_left_side">
-					<button class="memo_btn">add category</button>
+					<button class="memo_btn" onclick="openAddCategoryModal()">add category</button>
 					<div class="memo_tree_area">
 						<ul class="memo_category_select_tree">
 							<li class="memo_category_select_item_list">
@@ -71,66 +73,6 @@
 									카테고리3
 								</div>
 							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
 						</ul>
 					</div>
 					<!-- <button onclick="changeCategory();">카테고리 변경 버튼</button>
@@ -138,7 +80,9 @@
 				</div>
 				<div class="memo_middle">
 					<div class="memo_action_area">
-						<button class="memo_btn">add memo</button>
+						<button class="memo_btn" onclick="openAddMemoModal()">
+							add memo
+						</button>
 					</div>
 					<div class="memo_item_area">
 						<div id="memo_item_1" class="memo_item">
@@ -148,96 +92,87 @@
 								contenteditable="true"
 							></div>
 						</div>
-						<div id="memo_item_2" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_3" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_4" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_5" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_6" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_7" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_8" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_9" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_10" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_11" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
-						<div id="memo_item_12" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
 					</div>
 				</div>
 				<div class="memo_right_side">
-					<h2>메모 검색 영역</h2>
+					<div class="memo_search_area">
+						<input
+							type="text"
+							class="memo_search_input"
+							placeholder="검색어를 입력하세요"
+						/>
+						<button class="memo_search_clear_btn">x</button>
+				    </div>
 				</div>
 			</div>
 			<div class="memo_footer"></div>
 		</div>
+		<dialog class="memo_dialog">
+			<div class="dialog_container">
+				<div class="dialog_header">
+					<p class="dialog_title">메모 등록</p>
+				</div>
+				<div class="dialog_content">
+					<div class="dialog_input_area">
+						<label class="dialog_input_label required" for="title">제목</label>
+						<input type="text" name="title" class="dialog_input" />
+						<label class="dialog_input_label required" for="category">카테고리</label>
+						<select class="dialog_input">
+							<option selected value="category">전체</option>
+							<option value="category">카테고리1</option>
+							<option value="category">카테고리2</option>
+							<option value="category">카테고리3</option>
+						</select>
+					</div>
+				</div>
+				<div class="dialog_footer">
+				   <button class="memo_btn cancel_btn" onclick="closeAddMemoModal()">취소</button>
+				   <button class="memo_btn ok_btn" onclick="closeAddMemoModal()">확인</button>
+				</div>
+			</div>
+		</dialog>
+		<dialog class="category_dialog">
+			<div class="dialog_container">
+				<div class="dialog_header">
+					<p class="dialog_title">카테고리 추가</p>
+				</div>
+				<div class="dialog_content">
+					<div class="dialog_input_area">
+						<label class="dialog_input_label required" for="title">카테고리 이름</label>
+						<input type="text" name="title" class="dialog_input" />
+					</div>
+				</div>
+				<div class="dialog_footer">
+				   <button class="memo_btn cancel_btn" onclick="closeCategoryAddModal()">취소</button>
+				   <button class="memo_btn ok_btn" onclick="closeCategoryAddModal()">확인</button>
+				</div>
+			</div>
+		</dialog>
 	</body>
 	<script>
+		const memoAddModal = document.querySelector('.memo_dialog');
+		const categoryAddModal = document.querySelector('.category_dialog');
 		function saveMemo(memoId) {
 			alert('test' + memoId);
 		}
+
+		function openAddMemoModal() {
+			memoAddModal.showModal();
+		}
+
+		function openAddCategoryModal() {
+			categoryAddModal.showModal();
+		}
+
+		function closeAddMemoModal() {
+			memoAddModal.close();
+		}
+
+		
+		function closeCategoryAddModal() {
+			categoryAddModal.close();
+		}
+
 
 		document.addEventListener('DOMContentLoaded', event => {
 			const editableContent = document.querySelectorAll(

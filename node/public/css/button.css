@@ -1,0 +1,53 @@
+/** button custom stylesheet*/
+.memo_btn {
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px;
+    color: white;
+    background-color:  rgb(14, 231, 112);
+    border-color: transparent;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .memo_btn.ok_btn {
+    background-color: #043f0e;
+  }
+  
+  .memo_btn.cancel_btn {
+    background-color: #8b8b8b;
+  }
+  
+  .memo_btn.cancel_btn,
+  .memo_btn.ok_btn {
+    width: 70px;
+    margin-right: 5px;
+  }
+
+  .memo_middle .memo_action_area .memo_btn {
+    margin: 10px 5px 10px 0;
+  }
+  
+  .memo_left_side .memo_btn {
+    margin: 10px 5px 5px 0;
+  }
+
+  .memo_btn .list_btn {
+    border: none;
+  }
+  
+/** 검색 창 초기화 아이콘(버튼) */
+.memo_search_clear_btn {
+    position: absolute;
+    border: none;
+    color: white;
+    font-weight: bold;
+    background-color: navy;
+    width: 15px;
+    height: 15px;
+    top: 30px;
+    right: 10px;
+    border-radius: 50%;
+}
+  
