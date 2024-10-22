@@ -26,6 +26,8 @@ router.get('/', (req, res) => {
 // 메모 등록
 router.post('/', async (req, res) => {
   const category = req.body.category;
+  console.log('revert test');
+  console.log('이래도 안해줄꺼야?')
   return res.status(200).json({ category }); 
 });
 
