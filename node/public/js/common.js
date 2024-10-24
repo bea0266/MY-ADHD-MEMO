@@ -19,6 +19,6 @@ function debounce(func, wait) {
         const context = this;
 
         clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(context, args), wait);
+        timeout = setTimeout(async () => await func.apply(context, args), wait);
     };
 }

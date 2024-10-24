@@ -85,13 +85,6 @@
 						</button>
 					</div>
 					<div class="memo_item_area">
-						<div id="memo_item_1" class="memo_item">
-							<div class="memo_toolbar"></div>
-							<div
-								class="memo_input"
-								contenteditable="true"
-							></div>
-						</div>
 					</div>
 				</div>
 				<div class="memo_right_side">
@@ -114,20 +107,15 @@
 				</div>
 				<div class="dialog_content">
 					<div class="dialog_input_area">
-						<label class="dialog_input_label required" for="title">제목</label>
-						<input type="text" name="title" class="dialog_input" />
 						<label class="dialog_input_label required" for="category">카테고리</label>
-						<select class="dialog_input">
-							<option selected value="category">전체</option>
-							<option value="category">카테고리1</option>
-							<option value="category">카테고리2</option>
-							<option value="category">카테고리3</option>
+						<select id="selectbox" name="category" class="dialog_input">
+							<option selected value="all">전체</option>
 						</select>
 					</div>
 				</div>
 				<div class="dialog_footer">
 				   <button class="memo_btn cancel_btn" onclick="closeAddMemoModal()">취소</button>
-				   <button class="memo_btn ok_btn" onclick="closeAddMemoModal()">확인</button>
+				   <button class="memo_btn ok_btn" onclick="submitAddMemo()">확인</button>
 				</div>
 			</div>
 		</dialog>
@@ -152,12 +140,25 @@
 	<script>
 		const memoAddModal = document.querySelector('.memo_dialog');
 		const categoryAddModal = document.querySelector('.category_dialog');
-		function saveMemo(memoId) {
-			alert('test' + memoId);
+		async function saveMemo(memoId) {
+			try {
+				const content = document.querySelector(`#${memoId} .memo_input`).innerHTML;
+				const idParam = memoId.split('_')[2];
+				const reqbody = { content }
+
+				await axios.put(`/memo/${idParam}`, reqbody);
+			} catch (err) {
+                if (axios.isAxiosError(err)) {
+					console.error('[Error]', err.response.data);
+				} else {
+					console.error('[Error]', err);
+				}
+			}
 		}
 
 		function openAddMemoModal() {
 			memoAddModal.showModal();
+			memoAddModal.querySelector('.dialog_input').value = 'all';
 		}
 
 		function openAddCategoryModal() {
@@ -168,13 +169,72 @@
 			memoAddModal.close();
 		}
 
-		
 		function closeCategoryAddModal() {
 			categoryAddModal.close();
 		}
 
+		async function submitAddMemo() {
+			const category = document.querySelector('.dialog_input[name="category"]').value;
 
-		document.addEventListener('DOMContentLoaded', event => {
+			try {
+				await axios.post('/memo', { category });
+			} catch (err) {
+                if (axios.isAxiosError(err)) {
+					console.error('[Error]', err.response.data);
+				} else {
+					console.error('[Error]', err);
+				}
+			} finally {
+				closeAddMemoModal();
+			    getMemoList();
+			}
+
+		}
+
+		async function getMemoList() {
+			const createMemoInputContentEl = (memoList) => {
+				const memoItemArea = document.querySelector('.memo_item_area');
+                
+                // 요소의 하위 노드들을 전부 삭제
+                while (memoItemArea.firstChild) {
+                    memoItemArea.removeChild(memoItemArea.firstChild);
+                }
+
+				memoList.forEach((memo) => {
+					const memoItem = document.createElement('div');
+					memoItem.id = `memo_item_${memo.id}`;
+					memoItem.className = 'memo_item';
+					
+					const memoToolbar = document.createElement('div');
+					memoToolbar.className = 'memo_toolbar';
+
+					const memoInput = document.createElement('div');
+					memoInput.className = 'memo_input';
+					memoInput.contentEditable = true;
+					memoInput.insertAdjacentHTML('beforeend', memo.content);
+
+					memoItem.appendChild(memoToolbar);
+					memoItem.appendChild(memoInput);
+
+					document.querySelector('.memo_item_area').appendChild(memoItem);
+				});
+			}
+			try {
+				const { data: response } = await axios.get('/memo');
+				createMemoInputContentEl(response.items);
+			} catch (err) {
+				if (axios.isAxiosError(err)) {
+					console.error('[Error]', err.response.data);
+				} else {
+					console.error('[Error]', err);
+				}
+			}
+
+		}
+
+
+		document.addEventListener('DOMContentLoaded', async (event) => {
+			await getMemoList();
 			const editableContent = document.querySelectorAll(
 				'div[contenteditable="true"]'
 			);
@@ -184,13 +244,12 @@
 					content.focus();
 				});
 
-				const debouncedFunc = debounce(() => {
+				const debouncedFunc = debounce(async () => {
 					const memoId = content.parentElement.id;
-					saveMemo(memoId);
+					await saveMemo(memoId);
 				}, 700);
 
 				content.addEventListener('input', event => {
-					updatedMemoId = event.target.parentElement.id;
 					debouncedFunc();
 				});
 			});
