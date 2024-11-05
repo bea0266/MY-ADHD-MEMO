@@ -17,7 +17,9 @@
 			</div>
 			<div class="memo_content_area">
 				<div class="memo_left_side">
-					<button class="memo_btn" onclick="openAddCategoryModal()">add category</button>
+					<button class="memo_btn" onclick="openAddCategoryModal()">
+						add category
+					</button>
 					<div class="memo_tree_area">
 						<ul class="memo_category_select_tree">
 							<li class="memo_category_select_item_list">
@@ -25,52 +27,7 @@
 									class="memo_category_select_item_box"
 									onclick="alert('hello');"
 								>
-									카테고리1
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리2
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
-								</div>
-							</li>
-							<li class="memo_category_select_item_list">
-								<div class="memo_category_select_item_box">
-									카테고리3
+									전체
 								</div>
 							</li>
 						</ul>
@@ -84,8 +41,7 @@
 							add memo
 						</button>
 					</div>
-					<div class="memo_item_area">
-					</div>
+					<div class="memo_item_area"></div>
 				</div>
 				<div class="memo_right_side">
 					<div class="memo_search_area">
@@ -95,7 +51,7 @@
 							placeholder="검색어를 입력하세요"
 						/>
 						<button class="memo_search_clear_btn">x</button>
-				    </div>
+					</div>
 				</div>
 			</div>
 			<div class="memo_footer"></div>
@@ -107,15 +63,30 @@
 				</div>
 				<div class="dialog_content">
 					<div class="dialog_input_area">
-						<label class="dialog_input_label required" for="category">카테고리</label>
-						<select id="selectbox" name="category" class="dialog_input">
+						<label
+							class="dialog_input_label required"
+							for="category"
+							>카테고리</label
+						>
+						<select
+							id="selectbox"
+							name="category"
+							class="dialog_input"
+						>
 							<option selected value="all">전체</option>
 						</select>
 					</div>
 				</div>
 				<div class="dialog_footer">
-				   <button class="memo_btn cancel_btn" onclick="closeAddMemoModal()">취소</button>
-				   <button class="memo_btn ok_btn" onclick="submitAddMemo()">확인</button>
+					<button
+						class="memo_btn cancel_btn"
+						onclick="closeAddMemoModal()"
+					>
+						취소
+					</button>
+					<button class="memo_btn ok_btn" onclick="submitAddMemo()">
+						확인
+					</button>
 				</div>
 			</div>
 		</dialog>
@@ -126,13 +97,31 @@
 				</div>
 				<div class="dialog_content">
 					<div class="dialog_input_area">
-						<label class="dialog_input_label required" for="title">카테고리 이름</label>
-						<input type="text" name="title" class="dialog_input" />
+						<label
+							class="dialog_input_label required"
+							for="category_name"
+							>카테고리 이름</label
+						>
+						<input
+							type="text"
+							name="category_name"
+							class="dialog_input"
+						/>
 					</div>
 				</div>
 				<div class="dialog_footer">
-				   <button class="memo_btn cancel_btn" onclick="closeCategoryAddModal()">취소</button>
-				   <button class="memo_btn ok_btn" onclick="closeCategoryAddModal()">확인</button>
+					<button
+						class="memo_btn cancel_btn"
+						onclick="closeCategoryAddModal()"
+					>
+						취소
+					</button>
+					<button
+						class="memo_btn ok_btn"
+						onclick="submitAddCategoryModal()"
+					>
+						확인
+					</button>
 				</div>
 			</div>
 		</dialog>
@@ -140,15 +129,36 @@
 	<script>
 		const memoAddModal = document.querySelector('.memo_dialog');
 		const categoryAddModal = document.querySelector('.category_dialog');
+
+		// 전체 항목은 제외
+		let categorySelectOptions = [];
+
+		async function addMemoCategory(param) {
+			try {
+				await axios.post('/category', param);
+			} catch (err) {
+				if (axios.isAxiosError(err)) {
+					console.error('[Error]', err.response.data);
+				} else {
+					console.error('[Error]', err);
+				}
+			} finally {
+				closeCategoryAddModal();
+				getCategoryList();
+			}
+		}
+
 		async function saveMemo(memoId) {
 			try {
-				const content = document.querySelector(`#${memoId} .memo_input`).innerHTML;
+				const content = document.querySelector(
+					`#${memoId} .memo_input`
+				).innerHTML;
 				const idParam = memoId.split('_')[2];
-				const reqbody = { content }
+				const reqbody = { content };
 
 				await axios.put(`/memo/${idParam}`, reqbody);
 			} catch (err) {
-                if (axios.isAxiosError(err)) {
+				if (axios.isAxiosError(err)) {
 					console.error('[Error]', err.response.data);
 				} else {
 					console.error('[Error]', err);
@@ -157,8 +167,27 @@
 		}
 
 		function openAddMemoModal() {
+			const initCategoryOptions = (categorySelectOptions, selectBox) => {
+				// 첫 번째 option 요소를 제외한 나머지 아이템 삭제
+				while (selectBox.options.length > 1) {
+					selectBox.remove(1);
+				}
+				categorySelectOptions.forEach(option => {
+					const optionEl = document.createElement('option');
+					optionEl.value = option;
+					optionEl.textContent = option;
+
+					selectBox.appendChild(optionEl);
+
+					selectBox.value = 'all';
+				});
+			};
+
 			memoAddModal.showModal();
-			memoAddModal.querySelector('.dialog_input').value = 'all';
+			const selectBox = memoAddModal.querySelector(
+				'.dialog_input[name="category"]'
+			);
+			initCategoryOptions(categorySelectOptions, selectBox);
 		}
 
 		function openAddCategoryModal() {
@@ -174,37 +203,52 @@
 		}
 
 		async function submitAddMemo() {
-			const category = document.querySelector('.dialog_input[name="category"]').value;
+			const category = document.querySelector(
+				'.dialog_input[name="category"]'
+			).value;
 
 			try {
 				await axios.post('/memo', { category });
 			} catch (err) {
-                if (axios.isAxiosError(err)) {
+				if (axios.isAxiosError(err)) {
 					console.error('[Error]', err.response.data);
 				} else {
 					console.error('[Error]', err);
 				}
 			} finally {
 				closeAddMemoModal();
-			    getMemoList();
+				getMemoList();
 			}
+		}
 
+		async function submitAddCategoryModal() {
+			try {
+				const categoryName = document.querySelector(
+					'.dialog_input[name="category_name"]'
+				).value;
+				const param = { name: categoryName };
+				await addMemoCategory(param);
+			} catch {
+				alert('카테고리 추가 실패');
+			} finally {
+				closeCategoryAddModal();
+			}
 		}
 
 		async function getMemoList() {
-			const createMemoInputContentEl = (memoList) => {
+			const createMemoInputContentEl = memoList => {
 				const memoItemArea = document.querySelector('.memo_item_area');
-                
-                // 요소의 하위 노드들을 전부 삭제
-                while (memoItemArea.firstChild) {
-                    memoItemArea.removeChild(memoItemArea.firstChild);
-                }
 
-				memoList.forEach((memo) => {
+				// 요소의 하위 노드들을 전부 삭제
+				while (memoItemArea.firstChild) {
+					memoItemArea.removeChild(memoItemArea.firstChild);
+				}
+
+				memoList.forEach(memo => {
 					const memoItem = document.createElement('div');
 					memoItem.id = `memo_item_${memo.id}`;
 					memoItem.className = 'memo_item';
-					
+
 					const memoToolbar = document.createElement('div');
 					memoToolbar.className = 'memo_toolbar';
 
@@ -216,9 +260,11 @@
 					memoItem.appendChild(memoToolbar);
 					memoItem.appendChild(memoInput);
 
-					document.querySelector('.memo_item_area').appendChild(memoItem);
+					document
+						.querySelector('.memo_item_area')
+						.appendChild(memoItem);
 				});
-			}
+			};
 			try {
 				const { data: response } = await axios.get('/memo');
 				createMemoInputContentEl(response.items);
@@ -229,12 +275,62 @@
 					console.error('[Error]', err);
 				}
 			}
-
 		}
 
+		// 전체 카테고리 제외한 카테고리 목록 가져옴
+		async function getCategoryList() {
+			const createCategoryListContentEl = categoryList => {
+				const categoryTreeArea = document.querySelector(
+					'.memo_category_select_tree'
+				);
 
-		document.addEventListener('DOMContentLoaded', async (event) => {
-			await getMemoList();
+				// 요소의 하위 노드들을 전부 삭제
+				while (categoryTreeArea.firstChild) {
+					categoryTreeArea.removeChild(categoryTreeArea.firstChild);
+				}
+
+				// 카테고리 전체 항목 추가
+				const allCategoryItem = document.createElement('li');
+				allCategoryItem.className = 'memo_category_select_item_list';
+
+				const allCategoryItemBox = document.createElement('div');
+				allCategoryItemBox.className = 'memo_category_select_item_box';
+				allCategoryItemBox.textContent = '전체';
+
+				categoryTreeArea.appendChild(allCategoryItem);
+				allCategoryItem.appendChild(allCategoryItemBox);
+
+				categoryList.forEach(category => {
+					const listItem = document.createElement('li');
+					listItem.id = `category_item_${category.id}`;
+					listItem.className = 'category_item_list';
+
+					const listItemBox = document.createElement('div');
+					listItemBox.className = 'memo_category_select_item_box';
+					listItemBox.textContent = category.name;
+
+					categoryTreeArea.appendChild(listItem);
+					listItem.appendChild(listItemBox);
+				});
+			};
+			try {
+				const { data: response } = await axios.get('/category');
+				categorySelectOptions = [];
+				response.items.forEach(item => {
+					categorySelectOptions.push(item.name);
+				});
+				createCategoryListContentEl(response.items);
+			} catch (err) {
+				if (axios.isAxiosError(err)) {
+					console.error('[Error]', err.response.data);
+				} else {
+					console.error('[Error]', err);
+				}
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', async event => {
+			await Promise.all([getMemoList(), getCategoryList()]);
 			const editableContent = document.querySelectorAll(
 				'div[contenteditable="true"]'
 			);

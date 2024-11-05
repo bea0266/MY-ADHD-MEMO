@@ -7,7 +7,9 @@ const logger = require('morgan');
 const { renderHTML } = require('./src/utils/common');
 const htmlRouter = require('./src/router/htmlRouter');
 const memoRouter = require('./src/router/memoRouter');
+const categoryRouter = require('./src/router/categoryRouter');
 const winstonLogger = require('./src/plugin/logger');
+const { swaggerUi, specs } = require("./src/plugin/apiDocs");
 
 const app = express();
 const port = 3000;
@@ -25,6 +27,8 @@ app.use((req, res, next) => {
 app.use(logger('dev'));
 app.use('/', htmlRouter);
 app.use('/memo', memoRouter);
+app.use('/category', categoryRouter);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
