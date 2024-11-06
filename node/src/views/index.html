@@ -8,6 +8,8 @@
 		<link rel="stylesheet" href="/css/button.css" />
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>
+		<script type="text/javascript" src="/js/input.js"></script>
+		<script type="text/javascript" src="/js/memo.js"></script>
 		<title>메모 관리</title>
 	</head>
 	<body>
@@ -245,24 +247,18 @@
 				}
 
 				memoList.forEach(memo => {
-					const memoItem = document.createElement('div');
-					memoItem.id = `memo_item_${memo.id}`;
-					memoItem.className = 'memo_item';
+					const memoAttr = {
+						id: memo.id,
+					    content: memo.content,
+						bgColor: memo?.bgColor ?? '',
+						category: memo?.category ?? '',
+					}
 
-					const memoToolbar = document.createElement('div');
-					memoToolbar.className = 'memo_toolbar';
+					// 메모 객체 생성하고 렌더링
+					const memoItem = new Memo(memoAttr);
+					memoItem.render();
 
-					const memoInput = document.createElement('div');
-					memoInput.className = 'memo_input';
-					memoInput.contentEditable = true;
-					memoInput.insertAdjacentHTML('beforeend', memo.content);
-
-					memoItem.appendChild(memoToolbar);
-					memoItem.appendChild(memoInput);
-
-					document
-						.querySelector('.memo_item_area')
-						.appendChild(memoItem);
+					memoItemArea.appendChild(memoItem.$memoEl);
 				});
 			};
 			try {

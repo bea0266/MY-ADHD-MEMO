@@ -32,8 +32,8 @@ router.post('/', async (req, res) => {
       conn = await pool.getConnection();
       conn.beginTransaction();
 
-      const query = `INSERT INTO tb_memo (category) VALUES (?)`;
-      const result = await conn.query(query, [category]);
+      const query = `INSERT INTO tb_memo (category, userId) VALUES (?, ?)`;
+      const result = await conn.query(query, [category, 'admin']);
       
       logger.info(`query insert id: ${result.insertId}`);
       
